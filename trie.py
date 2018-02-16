@@ -26,8 +26,6 @@ class TrieNode:
       return;
 
     first_char, rest = word[:1], word[1:]
-    # print "first char " + first_char
-    # print "rest       " + str(rest)
 
     if first_char not in self.children:
       self.children[first_char] = TrieNode(first_char, self)
