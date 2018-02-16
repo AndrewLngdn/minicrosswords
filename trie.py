@@ -14,7 +14,6 @@ class Trie:
 
 class TrieNode:
   def __init__(self, character="", parent=None):
-    print character
     self.character = character;
     self.children = {}
     self.parent = parent
@@ -60,8 +59,11 @@ if __name__ == "__main__":
   words = ["hi", "hello", "howareyou", "helloworld"]
   trie = Trie(words)
   assert trie.root.children['h'].children['e'].children['l'].prefix() == "hel"
+
   assert set(trie.root.words_from_node()) == set(words)
-  
+  assert set(trie.root.children['h'].children['e'].words_from_node()) == set(["hello", "helloworld"])
+
+
   # import pdb; pdb.set_trace();
 
 
