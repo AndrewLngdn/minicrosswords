@@ -18,11 +18,12 @@ class TrieNode:
     self.character = character;
     self.children = {}
     self.parent = parent
-    # self.is_word = True
+    self.is_word = False
 
   def add_word(self, word):
     if word is '':
       print "word added"
+      self.is_word = True;
       return;
 
     first_char, rest = word[:1], word[1:]
@@ -39,22 +40,33 @@ class TrieNode:
       last_char = self.character
       return self.parent.prefix(last_char + suffix)
 
-  def words_from_node(self, word=""):
-    if len(self.children) is 0:
-      print word + self.character
-      return word
-    
-    word = word + self.character
-    for char, node in self.children.iteritems():
-      node.words_from_node(word)
+  def words_from_node(self):
+    words = []
+    nodes = [self]
 
+    while nodes:
+      node = nodes.pop()
+      # import pdb; pdb.set_trace()
+      if not any(node.children) or node.is_word:
+        words.append(node.prefix())
+      nodes = nodes + node.children.values()
+
+    return words
+
+
+
+
+# h -> i -> 
+#   -> e -> l
 
 
 if __name__ == "__main__":
-  trie = Trie(["hi", "hello", "howareyou", "helloworld"])
+  words = ["hi", "hello", "howareyou", "helloworld"]
+  trie = Trie(words)
   assert trie.root.children['h'].children['e'].children['l'].prefix() == "hel"
-  # print trie.root.words_from_node()
-  import pdb; pdb.set_trace();
+  assert set(trie.root.words_from_node()) == set(words)
+  
+  # import pdb; pdb.set_trace();
 
 
 
