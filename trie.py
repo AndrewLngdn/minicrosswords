@@ -22,7 +22,6 @@ class TrieNode:
 
   def add_word(self, word):
     if word is '':
-      print "word added"
       self.is_word = True;
       return;
 
@@ -46,14 +45,11 @@ class TrieNode:
 
     while nodes:
       node = nodes.pop()
-      # import pdb; pdb.set_trace()
       if not any(node.children) or node.is_word:
         words.append(node.prefix())
       nodes = nodes + node.children.values()
 
     return words
-
-
 
 
 # h -> i -> 
